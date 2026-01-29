@@ -1,0 +1,117 @@
+@startuml
+class database.ConnectionManager {
+- {static} Connection conexion
++ {static} boolean conectar(String,String,String)
++ {static} Object[][] ejecutarSelectSQL(String,Object[])
++ {static} int ejecutarUpdateSQL(String,Object[])
++ {static} long ejecutarInsertSQL(String,Object[])
+- {static} Object[][] convertirResultSets(ResultSet)
+- {static} void establecerParametros(PreparedStatement,Object[])
++ {static} boolean desconectar()
+}
+
+
+class dao.NotaDaoMap {
+- {static} int NUMERO_NOTAS
+- {static} Map<Long,Nota> mapaNotas
++ int obtenerNumeroNotas()
++ List<Nota> obtenerNotas(int,int)
++ Nota obtenerNota(long)
++ Nota guardarNota(Nota)
++ boolean actualizarNota(Nota)
++ boolean eliminarNota(long)
+}
+
+
+interface dao.INotaDao {
+~ int obtenerNumeroNotas()
+~ List<Nota> obtenerNotas(int,int)
+~ Nota obtenerNota(long)
+~ Nota guardarNota(Nota)
+~ boolean actualizarNota(Nota)
+~ boolean eliminarNota(long)
+}
+
+class dto.Nota {
+- Long id
+- String titulo
+- String contenido
+- LocalDateTime creado
+- LocalDateTime modificado
++ <<Create>> Nota()
++ <<Create>> Nota(Long)
++ <<Create>> Nota(Long,String,String)
++ <<Create>> Nota(String,String)
++ <<Create>> Nota(Long,String,String,LocalDateTime,LocalDateTime)
++ Long getId()
++ void setId(Long)
++ String getTitulo()
++ void setTitulo(String)
++ String getContenido()
++ void setContenido(String)
++ String getCreado()
++ void setCreado(LocalDateTime)
++ void setCreado(String)
++ String getModificado()
++ void setModificado(LocalDateTime)
++ void setModificado(String)
+}
+
+
+class dao.NotaDaoDb {
++ <<Create>> NotaDaoDb()
++ int obtenerNumeroNotas()
++ List<Nota> obtenerNotas(int,int)
++ Nota obtenerNota(long)
++ Nota guardarNota(Nota)
++ boolean actualizarNota(Nota)
++ boolean eliminarNota(long)
+}
+
+class service.NotaService {
+- INotaDao notaDao
++ <<Create>> NotaService()
++ int obtenerNumeroNotas()
++ List<Nota> obtenerNotas(int,int)
++ Nota obtenerNota(long)
++ Nota guardarNota(Nota)
++ boolean actualizarNota(Nota)
++ boolean eliminarNota(int)
+}
+
+
+class Main {
+- {static} Logger logger
++ {static} void main(String[])
+}
+
+
+class controller.NotaController {
+- {static} int NOTAS_POR_PAGINA
+- {static} NotaService notaService
++ {static} ModelAndView servirIndice(Request,Response)
++ {static} ModelAndView servirLista(Request,Response)
++ {static} ModelAndView servirNota(Request,Response)
++ {static} ModelAndView servirCrearNota(Request,Response)
++ {static} ModelAndView crearNota(Request,Response)
++ {static} ModelAndView servirEditarNota(Request,Response)
++ {static} ModelAndView editarNota(Request,Response)
++ {static} ModelAndView servirEliminarNota(Request,Response)
++ {static} ModelAndView eliminarNota(Request,Response)
++ {static} ModelAndView servirError(Request,Response)
+}
+
+
+
+
+dao.INotaDao <|.. dao.NotaDaoMap
+dao.INotaDao <|.. dao.NotaDaoDb
+
+Main ..> NotaController
+NotaController --> NotaService
+NotaController ..> Nota
+NotaService --> INotaDao
+NotaDaoDb ..> ConnectionManager
+NotaService ..> Nota
+INotaDao ..> Nota
+@enduml
