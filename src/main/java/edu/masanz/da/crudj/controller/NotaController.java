@@ -20,8 +20,8 @@ public class NotaController {
 
     public static void servirIndice(Context context){
         Map<String, Object> model = new HashMap<>();
-        model.put("titulo", "Notas");
-        model.put("encabezado", "Ejemplo CRUD con Spark y FreeMarker");
+        model.put("titulo", "Tareas");
+        model.put("encabezado", "Ejemplo CRUD con Javalin y FreeMarker");
         context.render("templates/index.ftl", model);
     }
 
@@ -52,7 +52,7 @@ public class NotaController {
         Nota nota = notaService.obtenerNota(idNota);
         model.put("eliminar", false);
         model.put("nota", nota);
-        if (nota.getId() == 0) {
+        if (nota == null || nota.getId() == 0) {
             model.put("mensajeError", "Nota no encontrada");
         }
         context.render("templates/nota.ftl", model);
@@ -71,7 +71,7 @@ public class NotaController {
         String contenido = context.formParam("contenido");
         Nota nota = new Nota(titulo, contenido);
         nota = notaService.guardarNota(nota);
-        if (nota.getId() != 0) {
+        if (nota == null || nota.getId() != 0) {
             context.redirect("/lista-notas");
 //            response.redirect("/nota/" + nota.getId());
         }else {
@@ -85,7 +85,7 @@ public class NotaController {
         Nota nota = notaService.obtenerNota(idNota);
         model.put("agregar", false);
         model.put("nota", nota);
-        if (nota.getId() == 0) {
+        if (nota == null || nota.getId() == 0) {
             model.put("mensajeError", "Nota no encontrada");
         }
         context.render("templates/form-nota.ftl", model);
@@ -109,7 +109,7 @@ public class NotaController {
         Nota nota = notaService.obtenerNota(idNota);
         model.put("eliminar", true);
         model.put("nota", nota);
-        if (nota.getId() == 0) {
+        if (nota==null || nota.getId() == 0) {
             model.put("mensajeError", "Nota no encontrada");
         }
         context.render("templates/nota.ftl", model);

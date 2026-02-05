@@ -21,6 +21,8 @@ public class Main {
             config.fileRenderer(new JavalinFreemarker());
         }).start(8080);
 
+        //Endpoint GET /nota/elimina-nota/8 not found
+
         app.get("/", NotaController::servirIndice);
         app.get("/lista-notas", NotaController::servirLista);
         app.get("/nota/{id}", NotaController::servirNota);
@@ -30,6 +32,7 @@ public class Main {
         app.post("/edita-nota/{id}", NotaController::editarNota);
         app.get("/elimina-nota/{id}", NotaController::servirEliminarNota);
         app.post("/elimina-nota/{id}", NotaController::eliminarNota);
+//        app.get("/elimina-nota/{id}", NotaController::eliminarNota);
         app.get("/error", NotaController::servirError);
 
     }

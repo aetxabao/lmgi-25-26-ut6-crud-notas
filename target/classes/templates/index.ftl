@@ -2,14 +2,14 @@
 <html>
 <head>
     <meta charset="UTF-8"/>
-    <title>TITULO DE LA PAGINA</title>
+    <title>${titulo}</title>
     <link rel="stylesheet" type="text/css" href="/css/style.css"/>
 </head>
 <body>
     <div class="container">
-        <h1>ENCABEZADO</h1>
+        <h1>${encabezado}</h1>
         <p class="center">Acceso a la aplicación</p>
-        <a class="center" href="/html/lista-notas.html">Notas</a>
+        <a class="center" href="lista-notas">${titulo}</a>
     </div>
 </body>
 </html>

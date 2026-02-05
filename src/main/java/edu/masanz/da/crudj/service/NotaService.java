@@ -12,8 +12,8 @@ public class NotaService {
     private INotaDao notaDao;
 
     public NotaService(){
-        notaDao = new NotaDaoMap();
-        //notaDao = new NotaDaoDb();
+        //notaDao = new NotaDaoMap();
+        notaDao = new NotaDaoDb();
     }
 
     public int obtenerNumeroNotas() {
